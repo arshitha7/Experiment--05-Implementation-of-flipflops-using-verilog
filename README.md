@@ -110,8 +110,25 @@ By using three variable K-Map, we can get the simplified expression for next sta
 The maximum possible groupings of adjacent ones are already shown in the figure. Therefore, the simplified expression for next state Qt+1t+1 is
 Q(t+1)=JQ(t)′+K′Q(t)Q(t+1)=JQ(t)′+K′Q(t)
 ### Program
+```
+module jk_ff(J,K,clk,Q,Qbar);
+input J,K,clk;
+output reg Q;
+output reg Qbar;
+initial Q=0;
+initial Qbar=1;
+always @(posedge clk)
+begin
+Q=(J&(~Q))|((~K)&Q);
+Qbar=((~J)&(Qbar))|K&(~Qbar);
+end
+endmodule
+```
 ### RTL Realization
+![image](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/7f6efe72-7d40-413e-90ed-d4cf39c4b7e5)
+
 ### Timing Diagram
+![jk timing diagram](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/6da88f69-3044-4a45-82bb-cde3d5d6c5a7)
 
 
 ### T Flip-Flop
@@ -136,8 +153,23 @@ From the above characteristic table, we can directly write the next state equati
 Q(t+1)=T′Q(t)+TQ(t)′
 ⇒Q(t+1)=T⊕Q(t)
 ### Program
+```
+module t_ff(clk,T,q,qbar);
+input clk,T;
+output q,qbar;
+reg q,qbar;
+always @(posedge clk)
+begin
+q<=(T&~q)|(~T&q);
+qbar<=~q;
+end 
+endmodule
+```
 ### RTL Realization
+![image](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/1ecf0667-3c4f-4819-b022-406a95a50793)
+
 ### Timing Diagram
+![d timing diagrM](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/8229af0e-9afe-4302-9fb6-93a74caddaf3)
 
 
 
