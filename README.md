@@ -36,26 +36,9 @@ By using three variable K-Map, we can get the simplified expression for next sta
  
 The maximum possible groupings of adjacent ones are already shown in the figure. Therefore, the simplified expression for next state Qt+1t+1 is
 Q(t+1)=S+R′Q(t)Q(t+1)=S+R′Q(t)
-### Program
-```
-module sr_flipflop(S,R,clk,Q,Qbar);
-input S,R,clk;
-output reg Q;
-output reg Qbar;
-initial Q=0;
-initial Qbar=1;
-always @(posedge clk)
-begin
-Q=S|((~R)&Q);
-Qbar=R|((~S)&(Qbar));
-end
-endmodule
-```
-### RTL realization
-![image](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/67e0b74f-f480-461f-8f1a-9a089939e3e6)
 
-### Timing Diagram
-![image](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/fd51cad8-3c2e-4678-b64c-4dcddb4c4af4)
+
+
 
 ### D Flip-Flop
 D flip-flop operates with only positive clock transitions or negative clock transitions. Whereas, D latch operates with enable signal. That means, the output of D flip-flop is insensitive to the changes in the input, D except for active transition of the clock signal. The circuit diagram of D flip-flop is shown in the following figure.
@@ -76,14 +59,7 @@ Qt+1t+1 = D
 ![image](https://user-images.githubusercontent.com/36288975/167908850-d39d07ba-7f9d-490a-b9f2-274e189fd047.png)
 
 Next state of D flip-flop is always equal to data input, D for every positive transition of the clock signal. Hence, D flip-flops can be used in registers, shift registers and some of the counters.
-### Program
-```
 
-
-```
-### RTL Realization
-
-### Timing diagram
 
 ### JK Flip-Flop
 JK flip-flop is the modified version of SR flip-flop. It operates with only positive clock transitions or negative clock transitions. The circuit diagram of JK flip-flop is shown in the following figure.
@@ -109,26 +85,9 @@ By using three variable K-Map, we can get the simplified expression for next sta
 
 The maximum possible groupings of adjacent ones are already shown in the figure. Therefore, the simplified expression for next state Qt+1t+1 is
 Q(t+1)=JQ(t)′+K′Q(t)Q(t+1)=JQ(t)′+K′Q(t)
-### Program
-```
-module jk_ff(J,K,clk,Q,Qbar);
-input J,K,clk;
-output reg Q;
-output reg Qbar;
-initial Q=0;
-initial Qbar=1;
-always @(posedge clk)
-begin
-Q=(J&(~Q))|((~K)&Q);
-Qbar=((~J)&(Qbar))|K&(~Qbar);
-end
-endmodule
-```
-### RTL Realization
-![image](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/7f6efe72-7d40-413e-90ed-d4cf39c4b7e5)
 
-### Timing Diagram
-![jk timing diagram](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/6da88f69-3044-4a45-82bb-cde3d5d6c5a7)
+
+
 
 
 ### T Flip-Flop
@@ -152,7 +111,58 @@ Inputs	Present State	Next State
 From the above characteristic table, we can directly write the next state equation as
 Q(t+1)=T′Q(t)+TQ(t)′
 ⇒Q(t+1)=T⊕Q(t)
+
+
+
 ### Program
+#### SR Flipflop
+```
+module sr_flipflop(S,R,clk,Q,Qbar);
+input S,R,clk;
+output reg Q;
+output reg Qbar;
+initial Q=0;
+initial Qbar=1;
+always @(posedge clk)
+begin
+Q=S|((~R)&Q);
+Qbar=R|((~S)&(Qbar));
+end
+endmodule
+```
+#### D Flip-Flop
+```
+module exp_5_dff(D,clk,Q,Qbar);
+input D,clk;
+output reg Q;
+output reg Qbar;
+initial Q=0;
+initial Qbar=1;
+always @(posedge clk)
+begin 
+Q=D;
+Qbar=~D;
+end
+endmodule
+```
+
+#### JK Flip-Flop
+```
+module jk_ff(J,K,clk,Q,Qbar);
+input J,K,clk;
+output reg Q;
+output reg Qbar;
+initial Q=0;
+initial Qbar=1;
+always @(posedge clk)
+begin
+Q=(J&(~Q))|((~K)&Q);
+Qbar=((~J)&(Qbar))|K&(~Qbar);
+end
+endmodule
+```
+
+#### T Flip-Flop
 ```
 module t_ff(clk,T,q,qbar);
 input clk,T;
@@ -166,12 +176,31 @@ end
 endmodule
 ```
 ### RTL Realization
+
+#### SR Flipflop
+![image](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/67e0b74f-f480-461f-8f1a-9a089939e3e6)
+
+#### D Flip-Flop
+![image](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/8a3c6b3f-4cc1-4ac8-9190-2a85bc114141)
+
+#### JK Flip-Flop
+![image](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/7f6efe72-7d40-413e-90ed-d4cf39c4b7e5)
+
+#### T Flip-Flop
 ![image](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/1ecf0667-3c4f-4819-b022-406a95a50793)
 
-### Timing Diagram
-![d timing diagrM](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/8229af0e-9afe-4302-9fb6-93a74caddaf3)
+### Timing diagram
+#### SR Flipflop
+![image](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/5db96afc-533d-4d63-bf31-28a3e594a768)
 
+#### D Flip-Flop
+![image](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/d3b2778c-bbbb-48c7-937a-c7ed4bc90225)
 
+#### JK Flip-Flop
+![image](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/6b0b174a-c406-4d86-b25e-e313de15ffca)
+
+#### T Flip-Flop
+![image](https://github.com/arshitha7/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979143/6a19a8af-0316-4dce-b6ff-4210f356c15b)
 
 
 ### RESULTS 
